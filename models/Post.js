@@ -37,4 +37,3 @@ Post.init({
 )
 
 module.exports = Post;
-// title, contents, post creator’s
