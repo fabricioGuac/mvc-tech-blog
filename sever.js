@@ -6,6 +6,8 @@ const path = require('path')
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
+const routes = require('./controller');
+
 
 // Creates an express application
 const app = express();
@@ -44,6 +46,9 @@ app.use(session(sess));
 // Sets up middleware for parsing url and json encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Sets up the routes
+app.use(routes);
 
 // Serves the static files in the public folder
 app.use(express.static(path.join(__dirname, 'public')));

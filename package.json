@@ -4,6 +4,7 @@
   "description": "Blog site for developers to share their thoughts and opinions",
   "main": "sever.js",
   "scripts": {
+    "start": "node sever.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
