@@ -14,7 +14,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Creates an instance of Handlebars engine
-const hbs = exphbs.create();
+const hbs = exphbs.create({ partialsDir: [path.join(__dirname, 'views', 'partials')]});
 
 // Requires the sequelize connection
 const sequelize = require('./config/connection');

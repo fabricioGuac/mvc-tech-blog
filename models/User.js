@@ -1,8 +1,12 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model, DataTypes, UUIDV4 } = require('sequelize');
 const sequelize = require('../config/connection');
 const bcrypt = require('bcrypt');
 
-class User extends Model { }
+class User extends Model {
+    checkPassword(loginPw) {
+        return bcrypt.compareSync(loginPw, this.password);
+    }
+}
 
 User.init(
     {
@@ -28,7 +32,9 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [8],
+                len: { args:[8],
+                    msg:"Password must be at least 8 characters long"
+                },
                 customsecurecheck(value) {
                     if (!/[A-Z]/.test(value)) {
                         throw new Error('Password must contain at least one uppercase letter');

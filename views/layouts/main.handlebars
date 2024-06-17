@@ -6,14 +6,23 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Blog</title>
 </head>
 <body>
     <body>
     <header class="display-flex justify-space-between align-center p-2">
+        <div> 
         <h1 class="text-center">
             Tech blog
         </h1>
+        </div>
+        {{#if logged_in}}
+        <div class="d-flex justify-content-end">
+        <button  class="btn btn-info mr-2" onclick="window.location.href='/profile'">Profile</button>
+        <button class="btn btn-secondary" id="logout">logout</button>
+        </div>
+        {{/if}}
     </header>
     <main class="container container-fluid mt-5">
         {{{ body }}}
@@ -26,5 +35,9 @@
         <a href="https://www.linkedin.com/IshouldProbablyCreateOne" target="_blank" class="icon"><i class="fab fa-linkedin fa-3x"></i></a>
     </div>
     </footer>
+    {{> modal}}
+        {{#if logged_in}}
+        <script src="/js/logout.js"></script>
+        {{/if}}
 </body>
 </html>
