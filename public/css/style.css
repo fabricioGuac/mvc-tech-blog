@@ -52,6 +52,10 @@ footer {
     height: 100px; 
 }
 
+.post{
+    background-color: #a57d54;
+}
+
 .login-card {
     padding: 5px; 
 }

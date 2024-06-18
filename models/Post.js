@@ -20,6 +20,10 @@ Post.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
+    date: {
+        type:DataTypes.DATE,
+        allowNull:false,
+    },
     user_id:{
         type: DataTypes.UUID,
         allowNull:false,
@@ -35,6 +39,11 @@ Post.init({
     freezeTableName: true,
     underscored: true,
     modelName: 'post',
+    hooks:{
+        beforeCreate: (post) =>{
+            post.date = new Date();
+        }
+    }
 }
 )
 

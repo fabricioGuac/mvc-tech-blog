@@ -17,12 +17,6 @@
             Tech blog
         </h1>
         </div>
-        {{#if logged_in}}
-        <div class="d-flex justify-content-end">
-        <button  class="btn btn-info mr-2" onclick="window.location.href='/profile'">Profile</button>
-        <button class="btn btn-secondary" id="logout">logout</button>
-        </div>
-        {{/if}}
     </header>
     <main class="container container-fluid mt-5">
         {{{ body }}}
@@ -38,6 +32,8 @@
     {{> modal}}
         {{#if logged_in}}
         <script src="/js/logout.js"></script>
+        {{else}}
+        <script src="/js/signin.js"></script>
         {{/if}}
 </body>
 </html>

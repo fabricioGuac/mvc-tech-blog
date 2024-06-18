@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-end">
+  <button class="btn btn-info mr-2" onclick="window.location.href='/'">Home</button>
+  <button class="btn btn-secondary" id="logout">logout</button>
+</div>
+{{!-- {{#if showForm}} --}}
+{{> newPost}}
+{{!-- {{/if}} --}}
+{{#each post}}
+<div class="post row mb-4 project">
+    <div class="col-md-5">
+    </div>
+</div>
+{{/each}}
+<div class="d-flex justify-content-center">
+  <button class="btn btn-success" id="newPost">+ New Post</button>
+</div>
+<script src="/js/dashboard.js"></script>

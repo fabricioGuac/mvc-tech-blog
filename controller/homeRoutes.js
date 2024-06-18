@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const auth = require('../utils/auth');
 
-router.get('/',auth,(req, res) => {
+router.get('/',(req, res) => {
     res.status(200).render('homepage', { logged_in: req.session.logged_in })
 })
 
@@ -19,6 +19,10 @@ router.get('/login', (req, res) => {
         return
     }
     res.status(200).render('login');
+})
+
+router.get('/dashboard',auth,(req, res) => {
+    res.status(200).render('dashboard', { logged_in: req.session.logged_in })
 })
 
 
