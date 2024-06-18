@@ -5,8 +5,16 @@
 {{!-- {{#if showForm}} --}}
 {{> newPost}}
 {{!-- {{/if}} --}}
-{{#each post}}
+{{#each posts as |post|}}
 <div class="post row mb-4 project">
+      <h2>{{post.title}}</h2>
+    <p>Created by: {{post.user.username}} on {{format_date post.date}}</p>
+  </div>
+  <div class="col-md-7">
+    <p>
+      {{post.content}}
+    </p>
+  </div>
     <div class="col-md-5">
     </div>
 </div>
