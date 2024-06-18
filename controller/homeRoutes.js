@@ -13,7 +13,6 @@ router.get('/',async (req, res) => {
             ]
         });
         const posts = AllPost.map((post) => post.get({plain:true}));
-        console.log(posts,"home")
 
         res.status(200).render('homepage', { 
             posts,
@@ -50,7 +49,6 @@ router.get('/dashboard',auth, async (req, res) => {
             }]
         });
         const posts = uPost.map((post) => post.get({plain:true}));
-        console.log(posts,"dashboard")
         res.status(200).render('dashboard', { 
             posts,
             logged_in: req.session.logged_in 

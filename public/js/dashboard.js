@@ -3,21 +3,21 @@ const poster = async (e) => {
     const title = $('#title').val().trim();
     const content = $('#content').val().trim();
 
-    if(title && content){
-        const response =  await fetch('api/post', {
+    if (title && content) {
+        const response = await fetch('api/post', {
             method: "POST",
-            body: JSON.stringify({title, content, date: Date()}),
-            headers: {"content-Type": "application/json"},
+            body: JSON.stringify({ title, content, date: Date() }),
+            headers: { "content-Type": "application/json" },
         });
-        if(!response.ok){
+        if (!response.ok) {
             const err = await response.json();
             console.log(err);
-            showModal(err.errors[0].message);
-        }else{
+            showModal(`Error making the post ${err.errors[0].message}`);
+        } else {
             location.reload();
             $('.newPost').hide();
         }
-    }else{
+    } else {
         showModal('Post must contain a title and content')
     }
 }
@@ -27,7 +27,25 @@ const poster = async (e) => {
 
 // } 
 
-$(document).ready(()=>{
+const delButtonHandler = async (e) => {
+        e.preventDefault()
+        const id = e.target.getAttribute('data-id');
+        console.log(id)
+        const response = await fetch(`/api/post/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (response.ok) {
+            const err = await response.json();
+            console.log(err)
+            document.location.replace('/dashboard');
+        } else {
+            showModal('Failed to delete post');
+        }
+};
+
+$(document).ready(() => {
     $('.post-form').on('submit', (e) => poster(e));
     // $('#newPost').on('click', )
+    $('.btn-danger').on('click', (e) => delButtonHandler(e))
 })
