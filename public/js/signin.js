@@ -32,8 +32,8 @@ const signin = async (e) => {
 
 $(document).ready(()=>{
     $('.signup-form').on('submit', (e) => signin(e))
-    $('#log-in').on('click', (e) => {
-        e.preventDefault();
-        document.location.replace('/login');
-    })
+    // $('#log-in').on('click', (e) => {
+    //     e.preventDefault();
+    //     document.location.replace('/login');
+    // })
 })
