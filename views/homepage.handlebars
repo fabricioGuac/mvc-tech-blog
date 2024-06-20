@@ -17,5 +17,9 @@
       {{post.content}}
     </p>
   </div>
+  <div>
+    <button class="btn btn-sm btn-ligth" onclick="window.location.href='/comments/{{post.id}}'"><i class="fas fa-comment-dots fa-2x"></i></i></button>
+    <p>{{post.comment_count}}</p>
+  </div>
 </div>
 {{/each}}

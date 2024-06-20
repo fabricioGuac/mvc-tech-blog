@@ -5,7 +5,7 @@ const poster = async (e) => {
     const content = $('#content').val().trim();
 
     if (title && content) {
-        const response = await fetch('api/post', {
+        const response = await fetch('/api/post', {
             method: "POST",
             body: JSON.stringify({ title, content}),
             headers: { "content-Type": "application/json" },
@@ -30,7 +30,6 @@ const poster = async (e) => {
 
 
 const delHandler = async (id) => {
-        console.log("INSIDE THE DEL FUNCTION",id)
         const response = await fetch(`/api/post/${id}`, {
             method: 'DELETE',
         });
@@ -47,9 +46,6 @@ const delHandler = async (id) => {
 // Adds the events listeners whe the document is fully loaded
 $(document).ready(() => {
     $('.post-form').on('submit', (e) => poster(e));
-    // $('#newPost').on('click', )
-    // $('.btn-danger').on('click', (e) => delHandler(e))
-    // $('.btn-warning').on('click', (e) => edHandler(e))
     $('.post').on('click', (e) => {
         const btn = e.target.closest('button[data-action]');
         if(btn){

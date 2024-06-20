@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {Post,User} = require('../models');
+const {Post,User,Comment} = require('../models');
 const auth = require('../utils/auth');
 
 router.get('/',async (req, res) => {
@@ -71,6 +71,30 @@ router.get('/editor/:id', auth, async (req, res) => {
         const post = edPost.get({ plain: true });
         res.status(200).render('editor', {
             post,
+            logged_in: req.session.logged_in
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+router.get('/comments/:id', auth, async (req, res) => {
+    try {
+        const comm = await Comment.findAll({
+            where: { post_id: req.params.id },
+            include: [
+                {
+                    model: User,
+                    attributes: ['username'],
+                }
+            ]
+        });
+
+
+        const comms = comm.map(comment => comment.get({ plain: true }));
+        res.status(200).render('comments', {
+            comms,
+            post_id:req.params.id,
             logged_in: req.session.logged_in
         });
     } catch (err) {
