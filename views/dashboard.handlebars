@@ -3,7 +3,7 @@
   <button class="btn btn-secondary" id="logout">logout</button>
 </div>
 {{!-- {{#if showForm}} --}}
-{{> newPost}}
+{{!-- {{> newPost}} --}}
 {{!-- {{/if}} --}}
 {{#each posts as |post|}}
 <div class="post row mb-4">
@@ -24,6 +24,6 @@
 {{/each}}
 
 <div class="d-flex justify-content-center">
-  <button class="btn btn-success" id="newPost">+ New Post</button>
+  <button class="btn btn-success" id="newPost" onclick="window.location.href='/newPost'" >+ New Post</button>
 </div>
 <script src="/js/dashboard.js"></script>
