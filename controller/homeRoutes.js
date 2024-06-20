@@ -58,5 +58,24 @@ router.get('/dashboard',auth, async (req, res) => {
     }
 })
 
+router.get('/editor/:id', auth, async (req, res) => {
+    try {
+        const edPost = await Post.findByPk(req.params.id, {
+            where: {
+                user_id: req.session.user_id
+            },
+        });
+        if(!edPost){
+            res.status(404).json({message:"No post found with this id"});
+        }
+        const post = edPost.get({ plain: true });
+        res.status(200).render('editor', {
+            post,
+            logged_in: req.session.logged_in
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 module.exports = router;

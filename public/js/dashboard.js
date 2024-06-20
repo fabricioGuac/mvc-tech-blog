@@ -1,3 +1,4 @@
+
 const poster = async (e) => {
     e.preventDefault();
     const title = $('#title').val().trim();
@@ -26,45 +27,41 @@ const poster = async (e) => {
 //     e.preventDefault();
 
 // } 
-const edHandler = async (e) => {
-    e.preventDefault()
-    const id = e.target.getAttribute('data-id');
-    console.log(id)
-    const response = await fetch(`/api/post/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify({ title, content}),
-        headers: { "content-Type": "application/json" },
-    });
 
-    if (response.ok) {
-        const err = await response.json();
-        console.log(err)
-        document.location.replace('/dashboard');
-    } else {
-        showModal('Failed to edit post');
-    }
-};
 
-const delHandler = async (e) => {
-        e.preventDefault()
-        const id = e.target.getAttribute('data-id');
-        console.log(id)
+const delHandler = async (id) => {
+        console.log("INSIDE THE DEL FUNCTION",id)
         const response = await fetch(`/api/post/${id}`, {
             method: 'DELETE',
         });
 
         if (response.ok) {
-            const err = await response.json();
-            console.log(err)
             document.location.replace('/dashboard');
         } else {
+            const err = await response.json();
+            console.log(err)
             showModal('Failed to delete post');
         }
 };
 
+// Adds the events listeners whe the document is fully loaded
 $(document).ready(() => {
     $('.post-form').on('submit', (e) => poster(e));
     // $('#newPost').on('click', )
-    $('.btn-danger').on('click', (e) => delHandler(e))
-    $('.btn-warning').on('click', (e) => edHandler(e))
+    // $('.btn-danger').on('click', (e) => delHandler(e))
+    // $('.btn-warning').on('click', (e) => edHandler(e))
+    $('.post').on('click', (e) => {
+        const btn = e.target.closest('button[data-action]');
+        if(btn){
+            const action = btn.getAttribute('data-action');
+            console.log(`ACTION ${action}`);
+            const id = btn.closest('[data-id]').getAttribute('data-id');
+            console.log(` ID ${id}`);
+            if(action === "delete"){
+                delHandler(id);
+            } else{ 
+                window.location.href = `/editor/${id}`;
+            }
+        }
+    });
 })
