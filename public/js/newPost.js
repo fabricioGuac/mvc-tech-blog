@@ -12,7 +12,7 @@ const poster = async (e) => {
         if (!response.ok) {
             const err = await response.json();
             console.log(err);
-            showModal(`Error making the post ${err.errors[0].message}`);
+            showModal(`Error making the post`);
         } else {
         document.location.replace('/dashboard');
         }

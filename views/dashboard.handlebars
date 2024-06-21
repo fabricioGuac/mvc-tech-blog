@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-end">
+<div class="d-flex justify-content-end mb-2">
   <button class="btn btn-info mr-2" onclick="window.location.href='/'">Home</button>
   <button class="btn btn-secondary" id="logout">logout</button>
 </div>
@@ -7,18 +7,22 @@
 {{!-- {{/if}} --}}
 {{#each posts as |post|}}
 <div class="post row mb-4">
-  <div class="col-md-5">
-    <h2>{{post.title}}</h2>
+  <div class="col-md-6">
+      <h2>{{post.title}}</h2>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end">
     <p>Posted by: {{post.user.username}} on {{format_date post.date}}</p>
   </div>
-  <div class="col-md-7">
+  <div class="col">
     <p>
       {{post.content}}
     </p>
   </div>
-  <div class="col-md-4" data-id="{{post.id}}">
-    <button class="btn btn-sm btn-danger" data-action="delete"><i class="fas fa-trash-alt"></i></button>
-    <button class="btn btn-sm btn-warning" data-action="edit"><i class="fas fas fa-edit"></i></button>
+  <div class="row">
+    <div class="col d-flex justify-content-end align-items-end">
+      <button class="btn btn-sm btn-danger mr-2" data-action="delete"><i class="fas fa-trash-alt"></i></button>
+      <button class="btn btn-sm btn-warning" data-action="edit"><i class="fas fa-edit"></i></button>
+    </div>
   </div>
 </div>
 {{/each}}

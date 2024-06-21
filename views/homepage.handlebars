@@ -19,9 +19,9 @@
       {{post.content}}
     </p>
   </div>
-  <div class="row mr-2 d-flex  align-items-center">
+  <div class="row mr-2 d-flex justify-content-center align-items-end">
     <button class="btn btn-sm btn-ligth" onclick="window.location.href='/comments/{{post.id}}'"><i class="fas fa-comment-dots fa-2x"></i></i></button>
-    <p class="mb-0">{{post.commentCount}}</p>
+    <p class="mb-2">{{post.commentCount}}</p>
   </div>
 </div>
 {{/each}}
