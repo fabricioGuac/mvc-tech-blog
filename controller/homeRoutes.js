@@ -24,6 +24,7 @@ router.get('/', async (req, res) => {
                     attributes: ['username'],
                 },
             ],
+            order: [['date', 'DESC']],
         });
         const posts = AllPost.map((post) => post.get({ plain: true }));
 
@@ -60,7 +61,8 @@ router.get('/dashboard', auth, async (req, res) => {
             include: [{
                 model: User,
                 attributes: ['username'],
-            }]
+            }],
+            order: [['date', 'DESC']],
         });
         const posts = uPost.map((post) => post.get({ plain: true }));
         res.status(200).render('dashboard', {
