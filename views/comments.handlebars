@@ -1,18 +1,18 @@
-<div class="d-flex justify-content-end">
+<div class="d-flex justify-content-end mb-2">
     <button class="btn btn-info mr-2" onclick="window.location.href='/'">Home</button>
     <button class="btn btn-secondary" id="logout">logout</button>
 </div>
 {{#if comms.length}}
 {{#each comms as |comm|}}
-<div class="post row mb-4 project">
-    <div class="col-md-5">
-        <h2>{{comm.user.username}} on {{format_date comm.date}}</h2>
+<div class="post mb-4">
+  <div class="row">
+    <div class="col-md-10">
+      <h3 class="ml-2">{{comm.content}}</h3>
     </div>
-    <div class="col-md-7">
-        <p>
-            {{comm.content}}
-        </p>
+    <div class="col-md-2 d-flex flex-column">
+      <p class="mb-0 mt-auto">-{{comm.user.username}}, {{format_date comm.date}}</p>
     </div>
+  </div>
 </div>
 {{/each}}
 {{/if}}

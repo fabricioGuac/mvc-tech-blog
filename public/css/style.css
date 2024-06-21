@@ -1,3 +1,7 @@
+:root {
+    --head: #311900;
+}
+
 @keyframes shadow-move {
     0% {
         box-shadow: 0 0 10px 10px rgba(255, 238, 3, 0.726);
@@ -45,6 +49,10 @@ body{
     padding-bottom: 100px;
 }
 
+header {
+    background-color:var(--head);
+}
+
 footer {
     position: absolute;
     bottom: 0;
@@ -54,21 +62,18 @@ footer {
 
 .post{
     background-color: #a57d54;
+    border: 2px solid  #1b0f01;
+    border-radius: 5px;
+}
+
+.title {
+    background-color:var(--head);
 }
 
 .login-card {
     padding: 5px; 
 }
 
-
-.Error{
-    color:red;
-    text-shadow: 
-        -1px -1px 0 black,  
-        1px -1px 0 black,
-        -1px 1px 0 black,
-        1px 1px 0 black;
-}
 
 .round {
     width: 18rem;
