@@ -13,16 +13,19 @@ const signin = async (e) => {
 
     // Ensures the form is complete
     if( username && email && password){
+        // Makes the api call
         const response =  await fetch('api/user/signin', {
             method: "POST",
             body: JSON.stringify({username, email, password}),
             headers: {"content-Type": "application/json"},
         });
         if(!response.ok){
+            // Logs the error to the console and shows it in the modal
             const err = await response.json();
             console.log(err);
             showModal(err.errors[0].message);
         } else {
+            // Sents the user to the homepage
             document.location.replace('/')
         }
     }else{
@@ -30,6 +33,7 @@ const signin = async (e) => {
     }
 }
 
+// Document.ready to ensure the page is fully loaded before adding the event listeners
 $(document).ready(()=>{
     $('.signup-form').on('submit', (e) => signin(e))
     // $('#log-in').on('click', (e) => {

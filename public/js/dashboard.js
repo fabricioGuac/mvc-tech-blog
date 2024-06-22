@@ -1,42 +1,15 @@
 
-// const poster = async (e) => {
-//     e.preventDefault();
-//     const title = $('#title').val().trim();
-//     const content = $('#content').val().trim();
-
-//     if (title && content) {
-//         const response = await fetch('/api/post', {
-//             method: "POST",
-//             body: JSON.stringify({ title, content}),
-//             headers: { "content-Type": "application/json" },
-//         });
-//         if (!response.ok) {
-//             const err = await response.json();
-//             console.log(err);
-//             showModal(`Error making the post ${err.errors[0].message}`);
-//         } else {
-//             location.reload();
-//             //$('.newPost').hide();
-//         }
-//     } else {
-//         showModal('Post must contain a title and content')
-//     }
-// }
-
-// const showForm = (e) => {
-//     e.preventDefault();
-
-// } 
-
-
 const delHandler = async (id) => {
+        // Makes the api call passing the id as a parameter
         const response = await fetch(`/api/post/${id}`, {
             method: 'DELETE',
         });
 
         if (response.ok) {
+            // Returns the user to the dashboard
             document.location.replace('/dashboard');
         } else {
+            // Logs the error and shows the modal with an error message
             const err = await response.json();
             console.log(err)
             showModal('Failed to delete post');
@@ -45,17 +18,20 @@ const delHandler = async (id) => {
 
 // Adds the events listeners whe the document is fully loaded
 $(document).ready(() => {
-    // $('.post-form').on('submit', (e) => poster(e));
     $('.post').on('click', (e) => {
+
+        // Find the closest button element with a data-action attribute when clicked
         const btn = e.target.closest('button[data-action]');
         if(btn){
+            // Get the value of the data-action attribute of the button
             const action = btn.getAttribute('data-action');
-            console.log(`ACTION ${action}`);
+            // Find the closest element with a 'data-id' attribute and get its value
             const id = btn.closest('[data-id]').getAttribute('data-id');
-            console.log(` ID ${id}`);
+            // If the action is delete calls the delete function passing the target id
             if(action === "delete"){
                 delHandler(id);
             } else{ 
+                // Redirects the user to the editor for the post with the target id
                 window.location.href = `/editor/${id}`;
             }
         }

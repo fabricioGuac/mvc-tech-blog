@@ -1,7 +1,8 @@
+/* Creates the variable*/
 :root {
     --head: #311900;
 }
-
+/* Sets an animation for the login and sign in froms */
 @keyframes shadow-move {
     0% {
         box-shadow: 0 0 10px 10px rgba(255, 238, 3, 0.726);
@@ -20,7 +21,7 @@
     }
 }
 
-
+/* Sets a foating animation fo the icons*/
 @keyframes float {
     0% { transform: translateY(0); }
     50% { transform: translateY(-20px); }
@@ -98,7 +99,7 @@ footer {
 }
 
 
-
+/* Applies the animation to the icons with different especifications */
 .icons .fa-archive { top: 10%; left: 20%; animation-duration: 8s; }
 .icons .fa-file-alt { top: 30%; left: 50%; animation-duration: 10s; }
 .icons .fa-comment-dots { top: 70%; left: 80%; animation-duration: 12s; }
