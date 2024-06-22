@@ -6,18 +6,6 @@ const sequelize = require('../config/connection')
 router.get('/', async (req, res) => {
     try {
         const AllPost = await Post.findAll({
-            attributes: {
-                include: [
-                    [
-                        sequelize.literal(`(
-                                        SELECT COUNT(*)
-                                        FROM comment
-                                        WHERE comment.post_id = post.id
-                                    )`),
-                        'commentCount'
-                    ]
-                ]
-            },
             include: [
                 {
                     model: User,
@@ -77,6 +65,36 @@ router.get('/dashboard', auth, async (req, res) => {
 router.get('/newPost', auth, (req, res) => {
     res.status(200).render('newPost');
 })
+
+router.get('/blog/:id', async (req, res) => {
+    try {
+    const readPost = await Post.findByPk(req.params.id,{
+        attributes: {
+            include: [
+                [
+                    sequelize.literal(`(
+                                    SELECT COUNT(*)
+                                    FROM comment
+                                    WHERE comment.post_id = post.id
+                                )`),
+                    'commentCount'
+                ]
+            ]
+        },
+    });
+
+    if (!readPost) {
+        res.status(404).json({ message: "No post found with this id" });
+    }
+    const post = readPost.get({ plain: true });
+    res.status(200).render('read', {
+        post,
+        logged_in: req.session.logged_in
+    });
+} catch (err) {
+    
+}})
+
 
 router.get('/editor/:id', auth, async (req, res) => {
     try {

@@ -13,7 +13,8 @@ N/A
 In order to use this project visit the deployed application to view the existing posts.
 Create an account to start posting your own content.
 Access your dashboard to manage your posts. Here, you can create new posts, edit existing ones, and delete posts as needed.
-To leave comments, navigate to the home page and click on the comment button. This will take you to the section where you can view existing comments and add your own.
+To read posts, navigate to the home page and click on the title of the post you want to read. This will take you to the section where you can read the post content.
+To leave comments, in the post read section click on the comment button. This will take you to the section where you can view existing comments and add your own.
 
 ## Screenshot displaying the deployed app
 

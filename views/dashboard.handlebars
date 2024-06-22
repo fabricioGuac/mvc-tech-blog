@@ -2,9 +2,6 @@
   <button class="btn btn-info mr-2" onclick="window.location.href='/'">Home</button>
   <button class="btn btn-secondary" id="logout">logout</button>
 </div>
-{{!-- {{#if showForm}} --}}
-{{!-- {{> newPost}} --}}
-{{!-- {{/if}} --}}
 {{#each posts as |post|}}
 <div class="post row mb-4">
   <div class="col-md-6 title">
@@ -19,7 +16,7 @@
     </p>
   </div>
   <div class="row">
-    <div class="col d-flex justify-content-end align-items-end">
+    <div class="col d-flex justify-content-end align-items-end" data-id="{{post.id}}">
       <button class="btn btn-sm btn-danger mr-2" data-action="delete"><i class="fas fa-trash-alt"></i></button>
       <button class="btn btn-sm btn-warning" data-action="edit"><i class="fas fa-edit"></i></button>
     </div>
