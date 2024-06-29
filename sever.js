@@ -10,7 +10,7 @@ const routes = require('./controller');
 const helpers = require('./utils/helper');
 
 
-// Creates an express application
+// Creates an instance of the express application
 const app = express();
 const PORT = process.env.PORT || 3001;
 
