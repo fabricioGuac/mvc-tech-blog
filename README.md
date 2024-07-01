@@ -18,7 +18,7 @@ To leave comments, in the post read section click on the comment button. This wi
 
 ## Screenshot displaying the deployed app
 
-![Tech blog](./assets/weather-checker.png)
+![Tech blog]()
 
 ## URL to the deployed app
 
