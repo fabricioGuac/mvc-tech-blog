@@ -48,7 +48,11 @@
       <button class="btn btn-sm" onclick="window.location.href='/comments/{{post.id}}'"><i class="fas fa-comment-dots fa-2x"></i></button>
       <p class="mb-2 mr-1">{{post.commentCount}}</p>
       {{#if logged_in}}
-      <button  id="likeBtn" class="btn btn-sm" data-id="{{post.id}}"><i id="heartIcon" class="fas fa-heart fa-2x"></i></button>
+      {{#if liked}}
+      <button  id="unlikeBtn" class="btn btn-sm" data-id="{{post.id}}"><i id="heartIcon" class="fas fa-heart fa-2x"></i></button>
+      {{else}}
+      <button  id="likeBtn" class="btn btn-sm" data-id="{{post.id}}"><i id="heartIcon" class="far fa-heart fa-2x"></i></button>
+      {{/if}}
       <p class="mb-2 mr-1">{{post.likeCount}}</p>
       {{/if}}
     </div>
