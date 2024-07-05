@@ -10,12 +10,12 @@
   <div class="col-md-6 d-flex justify-content-end title">
     <p>Posted by: {{post.user.username}} on {{format_date post.date}}</p>
   </div>
-  <div class="col">
-    <p class="text-break">
+  <div>
+    <p class="text-break ml-2">
       {{post.content}}
     </p>
-  </div>
-  <div class="row">
+    </div>
+    <div class="buttonContainer">
     <div class="col d-flex justify-content-end align-items-end" data-id="{{post.id}}">
       <button class="btn btn-sm btn-danger mr-2" data-action="delete"><i class="fas fa-trash-alt"></i></button>
       <button class="btn btn-sm btn-warning" data-action="edit"><i class="fas fa-edit"></i></button>

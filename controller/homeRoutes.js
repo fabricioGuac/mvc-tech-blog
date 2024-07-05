@@ -122,9 +122,14 @@ router.get('/blog/:id', async (req, res) => {
             ],
         });
 
-        // Checks if the post has already been like by the user
-        const liked = await Like.findOne({ where: {post_id: req.params.id, user_id: req.session.user_id}});
 
+        // Checks if the user is logged in
+        let liked = null;
+        if(req.session.user_id){
+        // Checks if the post has already been liked by the user
+        liked = await Like.findOne({ where: {post_id: req.params.id, user_id: req.session.user_id}});
+        }
+        
         // If no post matches the target id sents a not found status and error
         if (!readPost) {
             res.status(404).json({ message: "No post found with this id" });

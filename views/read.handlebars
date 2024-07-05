@@ -7,54 +7,31 @@
   <button class="btn btn-secondary" id="log-in" onclick="window.location.href='/login'" >login</button>
   {{/if}}
 </div>
-{{!-- <div class="post row mb-4">
-  <div class="col-md-6 title">
-    <h2>{{post.title}}</h2>
-  </div>
-  <div class="col-md-6 d-flex justify-content-end title">
-    <p>Posted by: {{post.user.username}} on {{format_date post.date}}</p>
-  </div>
-  <div class="row">
-  <div class="col-md-12">
-    <p class="text-break m-2">
-      {{post.content}}
-    </p>
-  </div>
-  </div>
-    <div class="row">
-    <div class="col-md-12 d-flex justify-content-end align-items-center">
-      <button class="btn btn-sm" onclick="window.location.href='/comments/{{post.id}}'"><i class="fas fa-comment-dots fa-2x"></i></button>
-      <p class="mb-2">{{post.commentCount}}</p>
-    </div>
-  </div>
-</div>  --}}
 
 <div class="post row mb-4">
+
   <div class="col-md-6 title">
       <h3 class="text-break">{{post.title}}</h3>
   </div>
-  <div class="col-md-6 d-flex justify-content-end title">
+  <div class="col-md-6  d-flex justify-content-end title">
     <p>Posted by: {{post.user.username}} on {{format_date post.date}}</p>
   </div>
-  {{!-- <div class="row"> --}}
-  <div class="col">
-    <p class="text-break">
+
+  <div>
+    <p class="text-break ml-2">
       {{post.content}}
     </p>
     </div>
-  {{!-- </div> --}}
-  <div class="row">
+  <div class="buttonContainer">
     <div class="col d-flex justify-content-end align-items-end">
       <button class="btn btn-sm" onclick="window.location.href='/comments/{{post.id}}'"><i class="fas fa-comment-dots fa-2x"></i></button>
       <p class="mb-2 mr-1">{{post.commentCount}}</p>
-      {{#if logged_in}}
       {{#if liked}}
       <button  id="unlikeBtn" class="btn btn-sm" data-id="{{post.id}}"><i id="heartIcon" class="fas fa-heart fa-2x"></i></button>
       {{else}}
       <button  id="likeBtn" class="btn btn-sm" data-id="{{post.id}}"><i id="heartIcon" class="far fa-heart fa-2x"></i></button>
       {{/if}}
       <p class="mb-2 mr-1">{{post.likeCount}}</p>
-      {{/if}}
     </div>
   </div>
 </div>
