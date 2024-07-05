@@ -79,6 +79,9 @@ footer {
     padding: 5px; 
 }
 
+.post-content{
+    word-wrap: break-word;
+}
 
 .round {
     width: 18rem;

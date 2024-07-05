@@ -1,6 +1,6 @@
 // Imports the router, models, sequelize and auth middleware
 const router = require('express').Router();
-const { Post, User, Comment } = require('../models');
+const { Post, User, Comment, Like } = require('../models');
 const auth = require('../utils/auth');
 const sequelize = require('../config/connection')
 
@@ -92,7 +92,7 @@ router.get('/blog/:id', async (req, res) => {
     try {
          // Reads from the post table the post that matches the primary key
         const readPost = await Post.findByPk(req.params.id, {
-            // Uses sequelize literal to count the comments for the target post
+            // Uses sequelize literal to count the comments and likes for the target post
             attributes: {
                 include: [
                     [
@@ -102,6 +102,14 @@ router.get('/blog/:id', async (req, res) => {
                             WHERE comment.post_id = post.id
                         )`),
                         'commentCount'
+                    ],
+                    [
+                        sequelize.literal(`(
+                            SELECT COUNT(*)
+                            FROM "like"
+                            WHERE "like".post_id = post.id
+                        )`),
+                        'likeCount'
                     ]
                 ]
             },
@@ -114,6 +122,9 @@ router.get('/blog/:id', async (req, res) => {
             ],
         });
 
+        // Checks if the post has already been like by the user
+        const liked = await Like.findOne({ where: {post_id: req.params.id, user_id: req.session.user_id}});
+
         // If no post matches the target id sents a not found status and error
         if (!readPost) {
             res.status(404).json({ message: "No post found with this id" });
@@ -125,7 +136,8 @@ router.get('/blog/:id', async (req, res) => {
         // Renders the read handlebars template, passing the post information and the logged in status
         res.status(200).render('read', {
             post,
-            logged_in: req.session.logged_in
+            logged_in: req.session.logged_in,
+            liked: liked !== null,
         });
     } catch (err) {
         res.status(500).json(err);

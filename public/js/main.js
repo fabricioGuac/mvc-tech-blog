@@ -25,7 +25,57 @@ const commenter = async (e) => {
     }
 }
 
+const liker = async (e) => {
+    e.preventDefault();
+    
+    const post_id =  e.target.closest('#likeBtn').getAttribute('data-id');
+        // Makes the api call
+        const response = await fetch('/api/like', {
+            method: "POST",
+            body: JSON.stringify({post_id}),
+            headers: { "Content-Type": "application/json" },
+        });
+        if (!response.ok) {
+            // Logs the error and shows the modal
+            const err = await response.json();
+            console.log(err);
+            showModal(err.message);
+        } 
+        else {
+            // Reloads the page
+            location.reload();
+        }
+}
+
+const unliker = async (e) => {
+    e.preventDefault();
+    
+    const post_id =  e.target.closest('#unlikeBtn').getAttribute('data-id');
+        // Makes the api call
+        const response = await fetch('/api/like', {
+            method: "DELETE",
+            body: JSON.stringify({post_id}),
+            headers: { "Content-Type": "application/json" },
+        });
+        if (!response.ok) {
+            // Logs the error and shows the modal
+            const err = await response.json();
+            console.log(err);
+            showModal(err.message);
+        } 
+        else {
+            // Reloads the page
+            location.reload();
+        }
+}
+
 // Document.ready to ensure the page is fully loaded before adding the event listener
 $(document).ready(() => {
     $('.comment-form').on('submit', (e) => commenter(e));
+    $('#likeBtn').on('click', function(e) {
+    liker(e);
+    })
+    $('#unlikeBtn').on('click', function(e) {
+        unliker(e);
+    })
 })
