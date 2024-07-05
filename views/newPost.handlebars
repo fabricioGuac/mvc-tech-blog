@@ -4,21 +4,27 @@
     <button class="btn btn-secondary" id="logout">logout</button>
 </div>
 <div class="col">
-        <div>
-            <h2 class="page-title text-center">New Post</h2>
-            <form class="form post-form">
-                <div class="form-group">
-                    <label for="title">Title:</label>
-                    <input class="form-control" type="text" maxlength="56" id="title"/>
-                </div>
-                <div class="form-group">
-                    <label for="content">Content:</label>
-                    <textarea class="form-control" id="content"  rows="5"></textarea>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-success" type="submit">Post</button>
-                </div>
-            </form>
-        </div>
+    <div>
+        <h2 class="page-title text-center">New Post</h2>
+        <form class="form post-form">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input class="form-control" type="text" maxlength="56" id="title" name="title" />
+            </div>
+            <div class="form-group">
+                <label for="content">Content:</label>
+                <textarea class="form-control" id="content" rows="5" name="content"></textarea>
+            </div>
+            <div class="form-group d-flex justify-content-end">
+                <label for="image" id="image-label" class="btn btn-info">
+                    Image
+                    <input type="file" id="image" class="d-none" name="image" onchange="document.getElementById('image-label').innerText = 'File Chosen'">
+                </label>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success" type="submit">Post</button>
+            </div>
+        </form>
+    </div>
 </div>
 <script src="/js/newPost.js"></script>
