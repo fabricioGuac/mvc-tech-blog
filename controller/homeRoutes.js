@@ -92,7 +92,7 @@ router.get('/blog/:id', async (req, res) => {
     try {
          // Reads from the post table the post that matches the primary key
         const readPost = await Post.findByPk(req.params.id, {
-            // Uses sequelize literal to count the comments for the target post
+            // Uses sequelize literal to count the comments and likes for the target post
             attributes: {
                 include: [
                     [
@@ -102,6 +102,14 @@ router.get('/blog/:id', async (req, res) => {
                             WHERE comment.post_id = post.id
                         )`),
                         'commentCount'
+                    ],
+                    [
+                        sequelize.literal(`(
+                            SELECT COUNT(*)
+                            FROM "like"
+                            WHERE "like".post_id = post.id
+                        )`),
+                        'likeCount'
                     ]
                 ]
             },

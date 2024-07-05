@@ -39,7 +39,7 @@ const liker = async (e) => {
             // Logs the error and shows the modal
             const err = await response.json();
             console.log(err);
-            showModal(`Error liking the post`);
+            showModal(err.message);
         } 
         // else {
         //     // Reloads the page
