@@ -73,13 +73,9 @@ const unliker = async (e) => {
 $(document).ready(() => {
     $('.comment-form').on('submit', (e) => commenter(e));
     $('#likeBtn').on('click', function(e) {
-    $(this).blur();
-    // $('#heartIcon').toggleClass('far fas');
     liker(e);
     })
     $('#unlikeBtn').on('click', function(e) {
-        $(this).blur();
-        // $('#heartIcon').toggleClass('far fas');
         unliker(e);
     })
 })

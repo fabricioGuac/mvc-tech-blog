@@ -1,6 +1,5 @@
 // Imports express router, the auth middelware and the like model
 const router = require('express').Router();
-const { json } = require('sequelize');
 const { Like } = require('../../models');
 const auth = require('../../utils/auth');
 
