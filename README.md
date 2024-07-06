@@ -18,11 +18,11 @@ To leave comments, in the post read section click on the comment button. This wi
 
 ## Screenshot displaying the deployed app
 
-![Tech blog]()
+![Tech blog](./assets/mvc-tech-blog-59iu.onrender.com_.png)
 
 ## URL to the deployed app
 
-
+https://mvc-tech-blog-59iu.onrender.com/
 
 ## Credits
 
