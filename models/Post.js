@@ -1,5 +1,6 @@
 const { Model, DataTypes, UUIDV4 } = require('sequelize');
 const sequelize = require('../config/connection');
+const { types } = require('pg');
 
 class Post extends Model {
     
@@ -19,6 +20,8 @@ Post.init({
     content: {
         type: DataTypes.TEXT,
         allowNull: false,
+    },
+    image:{ type: DataTypes.TEXT
     },
     date: {
         type:DataTypes.DATE,

@@ -2,12 +2,11 @@ const imgVal = (req, res, next) => {
     // 2 megabytes
     const valSize = 2 * 1024 * 1024;;
     const valType = ['image/jpeg', 'image/png', 'image/gif'];
-    console.log(req.body);
 
     const img = req.body.image;
 
     if (!img) {
-         return next();
+        return next();
     }
 
     // Extract MIME type and base64 data
@@ -29,7 +28,7 @@ const imgVal = (req, res, next) => {
     if (buffer.length > valSize) {
         return res.status(400).json({ message: 'Image size exceeds 2MB' });
     } else {
-         return next();
+        return next();
     }
 }
 module.exports = imgVal;
