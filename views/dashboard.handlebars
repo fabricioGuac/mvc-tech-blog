@@ -4,9 +4,11 @@
 </div>
 {{#each posts as |post|}}
 <div class="post row mb-4">
+  {{#if post.image}}
   <div>
     <img src="{{post.image}}" class="img-fluid" alt="post-image">
   </div>
+  {{/if}}
   <div class="col-md-6 title">
       <h3 class="text-break">{{post.title}}</h3>
   </div>
