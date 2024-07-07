@@ -30,7 +30,11 @@ const poster = async (e, img) => {
 
     } catch (err) {
         console.error('Error:', err);
+        if (err.message !== undefined){
+            showModal(err.message);
+        } else {
         showModal('Failed to make the post. Please try again.');
+        }
     }
 } else {
     showModal('Post must contain a title and content');
