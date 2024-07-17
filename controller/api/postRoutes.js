@@ -2,9 +2,10 @@
 const router = require('express').Router();
 const {Post} = require('../../models');
 const auth = require('../../utils/auth');
+const imgVal = require('../../utils/imgVal');
 
 // Route to create a new post
-router.post('/',auth,async (req, res) => {
+router.post('/',auth,imgVal,async (req, res) => {
     try {
         // Creates a new post with the body content and the session user id as the user id
         const post = await Post.create({
