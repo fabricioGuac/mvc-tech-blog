@@ -19,12 +19,13 @@
     <div id="chat-messages">
         {{#each chat as |message|}}
             <div class="message {{#if (eq message.sender_id ../currentUserId)}}sent{{else}}received{{/if}}">
+                <p>{{format_mess_date message.date}}</p>
                 <p><strong>{{#if (eq message.sender_id ../currentUserId)}}You{{else}}{{message.Sender.username}}{{/if}}:</strong> {{message.content}}</p>
             </div>
         {{/each}}
     </div>
     <form id="chat-form">
-        <input type="text" id="message-input" placeholder="Type a message..." required>
+        <input type="text" id="message-input" placeholder="Type a message...">
         <button type="submit" class="btn btn-success">Send</button>
     </form>
 </div>

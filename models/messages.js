@@ -30,11 +30,16 @@ Message.init({
           model: 'user',
           key: 'id',
         },
-    }
+    },
+    date: {
+        type:DataTypes.DATE,
+        allowNull:false,
+        defaultValue:DataTypes.NOW,
+    },
 },
 {
     sequelize,
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'message',

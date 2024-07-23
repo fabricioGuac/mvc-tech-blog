@@ -6,11 +6,10 @@ const {Op} = require('sequelize')
 
 
 // Function to create a mesage 
-router.post('/:id',auth, async (req, res) => {
-    // Deconstructs  the message content from the body
-    const {content} = req.body;
-    // Deconstructs the receiver id from the parameters
-    const {receiver_id} = req.params
+router.post('/',auth, async (req, res) => {
+    // Deconstructs the receiver id the message content from the body
+    const {receiver_id, content} = req.body;
+
     // Gets the sender id from the session user id
     const sender_id = req.session.user_id;
     try {
@@ -43,7 +42,7 @@ router.get('/:id',  auth, async (req, res) =>{
                 ],
             },
             // Orders them in ascending order
-            order: [['createdAt', 'ASC']],
+            order: [['date', 'ASC']],
                 // Joins with the user table on the username for the sender and receiver
                 include: [
                     {
