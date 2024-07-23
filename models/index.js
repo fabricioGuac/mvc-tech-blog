@@ -63,10 +63,12 @@ User.hasMany(Message,{
 
 Message.belongsTo(User, {
     foreignKey:'sender_id',
+    as: 'Sender',
 })
 
 Message.belongsTo(User,{
     foreignKey:'receiver_id',
+    as:'Receiver',
 })
 
 // Exports the models

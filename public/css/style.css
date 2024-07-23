@@ -117,6 +117,66 @@ footer {
 .icons .fa-user-edit { top: 40%; left: 10%; animation-duration: 18s; }
 
 
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 12px;
+    line-height: 1.5;
+    position: relative;
+    max-width: 75%;
+}
+
+.sent {
+    background-color: #007bff; 
+    color: #fff;
+    align-self: flex-end;
+    margin-left: auto;
+    text-align: right;
+}
+
+.received {
+    background-color: #e9ecef; 
+    color: #333;
+    align-self: flex-start;
+    margin-right: auto;
+    text-align: left;
+}
+
+.message p {
+    margin: 0;
+}
+
+.message strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#chat-form {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+#message-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#chat-container {
+    max-width: auto; 
+    margin: auto;
+    padding: 20px;
+    background: #836969;
+    border-radius: 8px;
+}
+
+#chat-messages {
+    max-height: auto; 
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
 
 @media screen and (min-width: 810px) {
     .round {

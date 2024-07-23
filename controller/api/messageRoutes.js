@@ -35,7 +35,7 @@ router.get('/:id',  auth, async (req, res) =>{
 
     try {
         // Retrieves all messages where the sender and receiver are either the target user and the current user, or vice versa
-        const chat = await Message.findAll({
+        const messages = await Message.findAll({
             where:{
                 [Op.or]: [
                     {sender_id: id, receiver_id: currentUserId},
@@ -44,15 +44,29 @@ router.get('/:id',  auth, async (req, res) =>{
             },
             // Orders them in ascending order
             order: [['createdAt', 'ASC']],
-                // Joins with the user table on the username
+                // Joins with the user table on the username for the sender and receiver
                 include: [
                     {
                         model: User,
+                        as: 'Sender',
+                        attributes: ['username'],
+                    },
+                    {
+                        model: User,
+                        as: 'Receiver',
                         attributes: ['username'],
                     },
                 ],
         });
-        res.status(200).json(chat);
+
+        const chat = messages.map(message => message.get({ plain: true }));
+
+
+        res.status(200).render('chat',{
+            chat,
+            logged_in: req.session.logged_in,
+            currentUserId: currentUserId
+        });
     } catch (err) {
         res.status(500).json(err);
     }

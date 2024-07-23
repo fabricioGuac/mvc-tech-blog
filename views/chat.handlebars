@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-end mb-2">
+  <button class="btn btn-info mr-2" onclick="window.location.href='/'">Home</button>
+  {{#if logged_in}}
+  <button class="btn btn-info mr-2" onclick="window.location.href='/dashboard'">Dashboard</button>
+  <button class="btn btn-secondary" id="logout">logout</button>
+  {{else}}
+  <button class="btn btn-secondary" id="log-in" onclick="window.location.href='/login'" >login</button>
+  {{/if}}
+</div>
+
+
+
+<div id="chat-container">
+    {{#if chat.[0]}}
+        <h1>Chat with {{#if (eq chat.[0].sender_id currentUserId)}}{{chat.[0].Receiver.username}}{{else}}{{chat.[0].Sender.username}}{{/if}}</h1>
+    {{else}}
+        <h1>Chat</h1>
+    {{/if}}
+    <div id="chat-messages">
+        {{#each chat as |message|}}
+            <div class="message {{#if (eq message.sender_id ../currentUserId)}}sent{{else}}received{{/if}}">
+                <p><strong>{{#if (eq message.sender_id ../currentUserId)}}You{{else}}{{message.Sender.username}}{{/if}}:</strong> {{message.content}}</p>
+            </div>
+        {{/each}}
+    </div>
+    <form id="chat-form">
+        <input type="text" id="message-input" placeholder="Type a message..." required>
+        <button type="submit" class="btn btn-success">Send</button>
+    </form>
+</div>
+<script src="/js/chat.js"></script>
+
