@@ -3,6 +3,7 @@ const User = require('./User');
 const Post = require('./Post');
 const Comment = require('./comment');
 const Like = require('./likes');
+const Message = require('./messages');
 
 // Defines the models relations
 User.hasMany(Post, {
@@ -50,5 +51,23 @@ Like.belongsTo(Post,{
     foreignKey:"post_id",
 })
 
+User.hasMany(Message,{
+    foreignKey: 'sender_id',
+    onDelete:'CASCADE'
+})
+
+User.hasMany(Message,{
+    foreignKey: 'receiver_id',
+    onDelete:'CASCADE'
+})
+
+Message.belongsTo(User, {
+    foreignKey:'sender_id',
+})
+
+Message.belongsTo(User,{
+    foreignKey:'receiver_id',
+})
+
 // Exports the models
-module.exports = {User, Post, Comment, Like};
+module.exports = {User, Post, Comment, Like, Message};
