@@ -1,18 +1,20 @@
 // Imports express router, the auth middelware and the message model
 const router = require('express').Router();
-const {Message} = require('../../models');
+const {Message, User} = require('../../models');
 const auth = require('../../utils/auth');
 const {Op} = require('sequelize')
 
 
-
-// auth
-router.post('/', async (req, res) => {
-    const {receiver_id, content, sender_id} = req.body;
-
-    // const sender_id = req.session.user_id;
+// Function to create a mesage 
+router.post('/:id',auth, async (req, res) => {
+    // Deconstructs  the message content from the body
+    const {content} = req.body;
+    // Deconstructs the receiver id from the parameters
+    const {receiver_id} = req.params
+    // Gets the sender id from the session user id
+    const sender_id = req.session.user_id;
     try {
-
+        // Creates a new message
         const newMessage =  await Message.create({receiver_id, sender_id, content});
 
         res.status(200).json(newMessage);
@@ -22,16 +24,17 @@ router.post('/', async (req, res) => {
 });
 
 
-// auth, get
+// Function to get the chat between two users
+router.get('/:id',  auth, async (req, res) =>{
 
-router.post('/:id',  async (req, res) =>{
-
+    //Deconstructs the id of the target user
     const {id} = req.params;
 
-    // const currentUserId = req.session.user_id;
-    const currentUserId = req.body.me;
+    // Gets the id of the current logged in user
+    const currentUserId = req.session.user_id;
 
     try {
+        // Retrieves all messages where the sender and receiver are either the target user and the current user, or vice versa
         const chat = await Message.findAll({
             where:{
                 [Op.or]: [
@@ -39,7 +42,15 @@ router.post('/:id',  async (req, res) =>{
                     {sender_id: currentUserId , receiver_id: id },
                 ],
             },
+            // Orders them in ascending order
             order: [['createdAt', 'ASC']],
+                // Joins with the user table on the username
+                include: [
+                    {
+                        model: User,
+                        attributes: ['username'],
+                    },
+                ],
         });
         res.status(200).json(chat);
     } catch (err) {
