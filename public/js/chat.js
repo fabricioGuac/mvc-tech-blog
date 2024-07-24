@@ -24,7 +24,10 @@ const  messenger = async () => {
         const err = await response.json();
         console.log(err);
         showModal(`Error creating the message`);
+    }else {
+        $('#message-input').val(''); 
     }
+    
 }
 
 
