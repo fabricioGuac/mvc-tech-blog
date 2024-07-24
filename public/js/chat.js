@@ -5,6 +5,23 @@ const pathArr= window.location.pathname.split('/');
 // Gets the id from path array the array
 const receiver_id= pathArr[pathArr.length - 1];
 
+
+const socket = io('http://localhost:3000');
+
+socket.on('connect', () => {
+  console.log('Connected to server');
+});
+
+socket.on('newMessage', (message) => {
+  console.log('New message received:', message);
+
+  const owner = message.id !== receiver_id ? 'received' : 'sent';
+  $('#chat-messages').append(`<div class="message ${owner}">
+                <p> ${message.content}</p>
+            </div>`);
+});
+
+
 const  messenger = async () => {
     const content = $('#message-input').val().trim();
 
@@ -26,6 +43,7 @@ const  messenger = async () => {
         showModal(`Error creating the message`);
     }else {
         $('#message-input').val(''); 
+        socket.emit('newMessage', { id: receiver_id ,content });
     }
     
 }

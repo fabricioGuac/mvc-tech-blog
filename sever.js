@@ -9,10 +9,37 @@ const exphbs = require('express-handlebars');
 const routes = require('./controller');
 const helpers = require('./utils/helper');
 
-
 // Creates an instance of the express application
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+
+// SOCKET STUFFF I HATE THIIIIISSSS I SHOULD PROBABLY FOCUS ON THE PROJECT BUT IM AN IDIOT
+const server = require('http').createServer(app);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: 'http://localhost:3001',
+    methods: ['GET', 'POST']
+  }});
+
+
+io.on('connection', (socket) => {
+  console.log("A CONNECTION HAS BEEN MADE");
+
+  socket.on('newMessage', (message) => {
+    // Broadcast the new message to all connected clients
+    io.emit('newMessage', { id: message.id, content: message.content });
+});
+
+  socket.on('disconnect', () => {
+    console.log('A client has DISCONEECCTEEDDDD');
+  })
+})
+
+server.listen(3000, () => {
+  console.log('LISTENING ON PORT 3000 AAAAAA')
+})
+
 
 // Creates an instance of Handlebars engine
 const hbs = exphbs.create({

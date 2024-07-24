@@ -1,8 +1,7 @@
 // Imports express router, the auth middelware and the message model
 const router = require('express').Router();
-const {Message, User} = require('../../models');
+const {Message} = require('../../models');
 const auth = require('../../utils/auth');
-const {Op} = require('sequelize')
 
 
 // Function to create a mesage 
