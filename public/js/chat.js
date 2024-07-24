@@ -13,8 +13,6 @@ const  messenger = async () => {
         return;
     }
 
-    console.log(content);
-
     // Makes the api call
     const response = await fetch('/api/message', {
         method: "POST",

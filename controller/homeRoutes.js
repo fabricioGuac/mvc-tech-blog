@@ -1,8 +1,9 @@
 // Imports the router, models, sequelize and auth middleware
 const router = require('express').Router();
-const { Post, User, Comment, Like } = require('../models');
+const { Post, User, Comment, Like, Message } = require('../models');
 const auth = require('../utils/auth');
 const sequelize = require('../config/connection')
+const {Op} = require('sequelize');
 
 // Route to get the posts and render the homepage handlebars template
 router.get('/', async (req, res) => {
@@ -205,6 +206,65 @@ router.get('/comments/:id', auth, async (req, res) => {
         res.status(500).json(err);
     }
 });
+
+
+// Route to get all users to chat with and display the latest chats at the top
+router.get('/messages', auth, async (req, res) => {
+    try {
+        // Gets the current user id
+        const currentUserId = req.session.user_id;
+
+        // Gets all users
+        const allUsers = await User.findAll();
+        // Converts the user objects to plain JavaScript objects for easier manipulation.
+        const allUsersData = allUsers.map(user => user.get({ plain: true }));
+
+        // Gets all messages where the current user is either the sender or the receiver ordered by descending date
+        const recentChats = await Message.findAll({
+            where: {
+                [Op.or]: [
+                    { sender_id: currentUserId },
+                    { receiver_id: currentUserId }
+                ],
+            },
+            attributes: ['sender_id', 'receiver_id', 'date'],
+            order: [['date', 'DESC']],
+        });
+
+        // Create a map to store the most recent date for each user pair
+        const recentChatDates = {};
+        recentChats.forEach(chat => {
+            // Determines the other user involved in the chat
+            const otherUserId = chat.sender_id === currentUserId ? chat.receiver_id : chat.sender_id;
+            /// Store the date of the first occurrence (most recent due to ordering) 
+            if (!recentChatDates[otherUserId]) {
+                recentChatDates[otherUserId] = chat.date;
+            }
+        });
+
+        // Separates users who have had recent chats with the current user
+        const recentChatUsers = allUsersData.filter(user => recentChatDates[user.id]);
+
+        // Sorts recent chat users by their most recent chat date in descending order
+        recentChatUsers.sort((a, b) => new Date(recentChatDates[b.id]) - new Date(recentChatDates[a.id]));
+
+        // Separates users who have not had recent chats with the current user
+        const otherUsers = allUsersData.filter(user => !recentChatDates[user.id]);
+
+        // Combines recent chat users and other users
+        const userChatsData = [...recentChatUsers, ...otherUsers];
+
+        res.status(200).render('chatOptions', {
+            userChatsData,
+            logged_in: req.session.logged_in,
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+
+
 
 // Exports the routes
 module.exports = router;
