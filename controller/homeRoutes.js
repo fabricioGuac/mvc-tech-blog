@@ -311,6 +311,16 @@ router.get('/messages/:id',  auth, async (req, res) =>{
     }
 })
 
+// Route to send the current user id
+router.get('/myId', auth, async (req, res) => {
+    try {
+        const { user_id } = req.session;
+
+        res.status(200).json(user_id);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
 
 // Exports the routes
 module.exports = router;
