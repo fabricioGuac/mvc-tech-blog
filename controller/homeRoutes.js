@@ -4,6 +4,7 @@ const { Post, User, Comment, Like, Message } = require('../models');
 const auth = require('../utils/auth');
 const sequelize = require('../config/connection')
 const {Op} = require('sequelize');
+const { findByPk } = require('../models/User');
 
 // Route to get the posts and render the homepage handlebars template
 router.get('/', async (req, res) => {
@@ -298,13 +299,18 @@ router.get('/messages/:id',  auth, async (req, res) =>{
                 ],
         });
 
+        const userData = await User.findByPk(id);
+
+        const userParsed = userData.get({plain: true});
+
         const chat = messages.map(message => message.get({ plain: true }));
 
 
         res.status(200).render('chat',{
             chat,
             logged_in: req.session.logged_in,
-            currentUserId: currentUserId
+            currentUserId: currentUserId,
+            userParsed,
         });
     } catch (err) {
         res.status(500).json(err);

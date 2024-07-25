@@ -12,11 +12,7 @@
 
 
 <div id="chat-container">
-    {{#if chat.[0]}}
-        <h1>Chat with {{#if (eq chat.[0].sender_id currentUserId)}}{{chat.[0].Receiver.username}}{{else}}{{chat.[0].Sender.username}}{{/if}}</h1>
-    {{else}}
-        <h1>Chat</h1>
-    {{/if}}
+        <h2>Chat with {{userParsed.username}}</h2>
     <div id="chat-messages">
         {{#each chat as |message|}}
             <div class="message {{#if (eq message.sender_id ../currentUserId)}}sent{{else}}received{{/if}}">

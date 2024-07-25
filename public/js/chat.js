@@ -5,6 +5,9 @@ const pathArr = window.location.pathname.split('/');
 // Gets the id from path array
 const receiverId = pathArr[pathArr.length - 1];
 
+// Gets the other member of the chat id
+const otherGuy = $('h2').text().substring(10);
+
 // Function to get the user id 
 const meGetter = async () => {
   try {
@@ -47,13 +50,14 @@ const initializeSocket = async () => {
     console.log('New message received:', message);
 
     // Ternary operator to determine if the message was sent or received
-    const owner = message.senderId === currentUserId ? 'sent' : 'received';
+    const sentRece = message.senderId === currentUserId ? 'sent' : 'received';
+    const owner = message.senderId === currentUserId ? 'You' : otherGuy ;
 
     // Append the new message to the chat messages container
     $('#chat-messages').append(`
-      <div class="message ${owner}">
+      <div class="message ${sentRece}">
         <p>${new Date().toLocaleString('en-US')}</p>
-        <p>${message.content}</p>
+        <p><strong>${owner}:</strong> ${message.content}</p>
       </div>
     `);
   });
