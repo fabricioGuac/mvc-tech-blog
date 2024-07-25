@@ -2,48 +2,47 @@ const { Model, DataTypes, UUIDV4 } = require('sequelize');
 const sequelize = require('../config/connection');
 
 
-class Post extends Model {
-    
-}
+class Message extends Model {}
 
-Post.init({
-    id: {
+Message.init({
+    id:{
         type: DataTypes.UUID,
         defaultValue: UUIDV4,
         allowNull: false,
         primaryKey: true,
     },
-    title: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    content: {
+    content:{
         type: DataTypes.TEXT,
-        allowNull: false,
-    },
-    image:{ type: DataTypes.TEXT
-    },
-    date: {
-        type:DataTypes.DATE,
         allowNull:false,
-        defaultValue:DataTypes.NOW,
     },
-    user_id:{
+    sender_id:{
         type: DataTypes.UUID,
         allowNull:false,
         references: {
           model: 'user',
           key: 'id',
         },
-    }
+    },
+    receiver_id:{
+        type: DataTypes.UUID,
+        allowNull:false,
+        references: {
+          model: 'user',
+          key: 'id',
+        },
+    },
+    date: {
+        type:DataTypes.DATE,
+        allowNull:false,
+        defaultValue:DataTypes.NOW,
+    },
 },
 {
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'post',
-}
-)
+    modelName: 'message',
+})
 
-module.exports = Post;
+module.exports = Message

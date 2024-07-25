@@ -9,10 +9,51 @@ const exphbs = require('express-handlebars');
 const routes = require('./controller');
 const helpers = require('./utils/helper');
 
-
 // Creates an instance of the express application
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+
+// Initiates a server and the socket
+const server = require('http').createServer(app);
+const io = require('socket.io')(server, {
+  // Allow from cross origin requests from http://localhost:3001 with the get and post methods only
+  cors: {
+    origin: 'http://localhost:3001',
+    methods: ['GET', 'POST']
+  }});
+
+// Event listener for when a connection is established
+io.on('connection', (socket) => {
+  console.log("A connection has been established");
+
+  // Event listener for 'joinChat' events 
+  socket.on('joinChat', ({ userId, targetUserId }) => {
+    // Creates a room id joining the ids of the members of the chat
+    const roomId = [userId, targetUserId].sort().join('_'); 
+    // Join the especified room
+    socket.join(roomId);
+  });
+
+  // Event listener for 'newMessage' events
+  socket.on('newMessage', (message) => {
+    // Gets the room id
+    const roomId = [message.senderId, message.receiverId].sort().join('_'); 
+    // Sends the new message to the target room
+    io.to(roomId).emit('newMessage', { content: message.content, senderId: message.senderId });
+  });
+
+  // Event listener for when the client disconnects
+  socket.on('disconnect', () => {
+    console.log('A client has disconected');
+  })
+})
+
+// Start the server and listen on port 3000
+server.listen(3000, () => {
+  console.log('LISTENING ON PORT 3000')
+})
+
 
 // Creates an instance of Handlebars engine
 const hbs = exphbs.create({
