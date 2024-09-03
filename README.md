@@ -22,7 +22,7 @@ To leave comments, in the post read section click on the comment button. This wi
 
 ## URL to the deployed app
 
-https://mvc-tech-blog-59iu.onrender.com/
+https://mvc-tech-blog-spbn.onrender.com/newPost
 
 ## Credits
 
